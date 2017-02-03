@@ -14,26 +14,6 @@ http://www.html5rocks.com/en/tutorials/getusermedia/intro/
             background-color: #fff;
         }
 
-        #spa {
-            top: 8px;
-            left: 8px;
-            bottom: 8px;
-            right: 8px;
-            border-radius: 8px 8px 0 8px;
-            background-color: #ffff;
-        }
-
-        .spa-slider {
-            position: absolute;
-            bottom: 0;
-            right: 2px;
-            width: 300px;
-            height: 16px;
-            cursor: pointer;
-            border-radius: 8px 0 0 0;
-            background-color: #ccc;
-        }
-
         #WorkArea, #Messages {
             position: absolute;
             background-image: -moz-radial-gradient(30px 30px, #fff, #ddF);
@@ -90,46 +70,24 @@ http://www.html5rocks.com/en/tutorials/getusermedia/intro/
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
+
 <script type="text/javascript">
- $(function() {
+    $(function () {
+        var showEventMessage = function (options) {
+            options = $.extend(
+                       {
+                           eventType: 'CLICK',
+                           eventTarget: this,
+                           suffix: '<br/>'
+                       }, options);
+            var message = options.eventType + ': '
+                              + (options.eventTarget.nodeName || 'unknown')
+                              + options.suffix;
+            $('#Messages').append(message);
+        };
 
+        $('.clickable')
+            .on('click', showEventMessage({eventTarget: this}));
 
- var showEventMessage = function(options) {
-
-     options = $.extend(
-                { eventType: 'CLICK',
-                  eventTarget: this,
-                  suffix: '<br/>' },     options );
-
-    var message = options.eventType + ': '
-                      +  (options.eventTarget.nodeName || 'unknown')
-                      +  options.suffix;
-
-                  $('#Messages').append(message);
-  };
-
-
-
-    $('.clickable')
-        .click(function(evt) {
-          showEventMessage.call(this,{eventType:evt.type});
-           // evt.stopImmediatePropagation();
-        })
-        .dblclick(function(evt) {
-          showEventMessage.call(this,{eventType:evt.type });
-        })
-        .mousedown(function(evt) {
-          showEventMessage.call(this,{eventType:evt.type});
-          evt.stopImmediatePropagation();
-          evt.preventDefault();
-        })
-        .mousedown(function(evt) {
-          showEventMessage.call(this,{eventType:evt.type,
-          								suffix:'#2<br/>'});
-        });
-
-
-
-
-}); </script>
+    }); </script>
 </html>
