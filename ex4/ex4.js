@@ -22,8 +22,7 @@ function Button(width, height, label) {
 Button.prototype = Object.create(Widget.prototype);
 
 Button.prototype.render = function ($where) {
-    var self = this;
-    this.__proto__.__proto__.render($where).bind(self);
+    this.__proto__.__proto__.render.call(this, $where);
     this.$elem.on('click', function configHandle(evt) {
         this.$elem.onClick(evt);
     });
