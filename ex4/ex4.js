@@ -21,16 +21,13 @@ function Button(width, height, label) {
 
 Button.prototype = Object.create(Widget.prototype);
 
-Button.prototype.onclick = function (evt) {
-    console.log('Button ' + evt.target.innerText + ' clicked!');
+Button.prototype.onClick = function (evt) {
+    console.log('Button ' + this.label + ' clicked!');
 }
 
 Button.prototype.render = function ($where) {
-    this.__proto__.__proto__.render.call(this, $where);
-    var btnClick = this.__proto__.onclick;
-    this.$elem.on('click', function (evt) {
-        btnClick(evt);
-    });
+    Widget.prototype.render.call(this, $where);
+    this.$elem.bind('click', this.onClick.bind(this));
 }
 
 
