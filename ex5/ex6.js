@@ -1,26 +1,20 @@
 ﻿(function main(global) {
     var results = {};
-    var f1results = '';
-    var f2results = '';
-    var f3results = '';
-    //$.when(getFile("file1", f1results), getFile("file2", f2results), getFile("file3", f3results))
-    //    .then(function () {
-    //        console.log(f1results);
-    //        console.log(f2results);
-    //        console.log(f3results);
-    //        console.log("complete!");
-    //    });
-    //testit(f1results);
-    //console.log(f1results);
+
+    $.when(getFile("file1", results), getFile("file2", results), getFile("file3", results))
+        .then(function () {
+            console.log(results.file1);
+            console.log(results.file2);
+            console.log(results.file3);
+            console.log("complete!");
+        });
+
 })(window);
 
-function testit(valret) {
-    valret = 'abcdef';
-}
 function getFile(file,results) {
     var deferred = jQuery.Deferred();
     fakeAjax(file, function (text) {
-        results = text;
+        results[file] = text;
         deferred.resolve();
     });
     return deferred.promise();
