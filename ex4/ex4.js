@@ -21,22 +21,24 @@ function Button(width, height, label) {
 
 Button.prototype = Object.create(Widget.prototype);
 
+Button.prototype.onclick = function (evt) {
+    console.log('Button ' + evt.target.innerText + ' clicked!');
+}
+
 Button.prototype.render = function ($where) {
     this.__proto__.__proto__.render.call(this, $where);
-    this.$elem.on('click', function configHandle(evt) {
-        this.$elem.onClick(evt);
+    var btnClick = this.__proto__.onclick;
+    this.$elem.on('click', function (evt) {
+        btnClick(evt);
     });
 }
 
-Button.onClick = function (evt) {
-    console.log('Button ' + evt.target.text + 'clicked!');
-}
 
 $(document).ready(function(){
     var $body = $(document.body);
     var btn1 = new Button(100, 100, "button 1");
-    //var btn2 = new Button(100, 100, "button 2");
+    var btn2 = new Button(200, 200, "button 2");
 
     btn1.render($body);
-    //btn2.render($body);
+    btn2.render($body);
 });
