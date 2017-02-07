@@ -1,20 +1,27 @@
 ﻿(function main(global) {
+    var results = {};
     var f1results = '';
     var f2results = '';
     var f3results = '';
-    $.when(getFile("file1", f1results), getFile("file2", f2results), getFile("file3", f3results)).then(function () {
-        console.log(f1results);
-        console.log(f2results);
-        console.log(f3results);
-        console.log("complete!");
-    });
+    //$.when(getFile("file1", f1results), getFile("file2", f2results), getFile("file3", f3results))
+    //    .then(function () {
+    //        console.log(f1results);
+    //        console.log(f2results);
+    //        console.log(f3results);
+    //        console.log("complete!");
+    //    });
+    //testit(f1results);
+    //console.log(f1results);
 })(window);
 
+function testit(valret) {
+    valret = 'abcdef';
+}
 function getFile(file,results) {
     var deferred = jQuery.Deferred();
     fakeAjax(file, function (text) {
-        deferred.resolve();
         results = text;
+        deferred.resolve();
     });
     return deferred.promise();
 }
