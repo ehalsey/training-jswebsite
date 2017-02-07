@@ -3,25 +3,32 @@
 
     $.when(getFile("file1", results))
     .then(function () {
-        console.log(results.file1);
+        $.when(writeResult(results.file1))
+            .then(function () {
+                $.when(writeResult(results.file2))
+                            .then(function () {
+                                writeResult(results.file3);
+                                console.log("complete!");
+                            })
+            });
     });
 
     $.when(getFile("file2", results))
         .then(function () {
-            while (!results.file1) {
-            }
-            console.log(results.file2);
         });
 
     $.when(getFile("file3", results))
         .then(function () {
-            while (!results.file1 || !results.file2) {
-            }
-            console.log(results.file3);
-            console.log("complete!");
         });
 
 })(window);
+
+function writeResult(textOut) {
+    var deferred = jQuery.Deferred();
+    console.log(textOut);
+    deferred.resolve();
+    return deferred.promise();
+}
 
 function getFile(file,results) {
     var deferred = jQuery.Deferred();
