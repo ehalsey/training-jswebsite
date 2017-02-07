@@ -1,10 +1,22 @@
 ﻿(function main(global) {
     var results = {};
 
-    $.when(getFile("file1", results), getFile("file2", results), getFile("file3", results))
+    $.when(getFile("file1", results))
+    .then(function () {
+        console.log(results.file1);
+    });
+
+    $.when(getFile("file2", results))
         .then(function () {
-            console.log(results.file1);
+            while (!results.file1) {
+            }
             console.log(results.file2);
+        });
+
+    $.when(getFile("file3", results))
+        .then(function () {
+            while (!results.file1 || !results.file2) {
+            }
             console.log(results.file3);
             console.log("complete!");
         });
