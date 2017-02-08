@@ -1,8 +1,5 @@
 ﻿<!DOCTYPE html>
 <html>
-<!-- script src="mediastream.js"></script
-http://www.html5rocks.com/en/tutorials/getusermedia/intro/
--->
 <head>
     <meta charset="utf-8" />
     <title>Events</title>
@@ -53,7 +50,8 @@ http://www.html5rocks.com/en/tutorials/getusermedia/intro/
     <div id="WorkArea" class="clickable">
         <h5 class="clickable">WorkArea:</h5>
         <hr />
-        <input type="button" class="clickable" value="click me" />
+        <input type="button" class="clickable" value="click me" onclick="acto.alert('button clicked');" />
+        <input type="button" class="clickable" value="click me default" onclick="acto.alert();" />
         <p class="clickable"> Click me!</p>
         <p class="clickable">
             This is some more text <span class="clickable"> [ click it! ]</span>
@@ -68,26 +66,18 @@ http://www.html5rocks.com/en/tutorials/getusermedia/intro/
         <div class="spa-slider"></div>
     </div>
 </body>
+
+</html>
 <script src="Scripts/jquery-3.1.1.min.js"></script>
 
-
 <script type="text/javascript">
-    $(function () {
-        var showEventMessage = function (options) {
-            options = $.extend(
-                       {
-                           eventType: 'CLICK',
-                           eventTarget: this,
-                           suffix: '<br/>'
-                       }, options);
-            var message = options.eventType + ': '
-                              + (options.eventTarget.nodeName || 'unknown')
-                              + options.suffix;
-            $('#Messages').append(message);
+    (function loadIt(global) {
+        global.acto = {
+            alert: function doAlert(alertMsg) {
+                alertMsg = alertMsg || this.DEFAULT_MSG;
+                alert(alertMsg);
+            },
+            DEFAULT_MSG: "some message"
         };
-
-        $('.clickable')
-            .on('click', showEventMessage({eventTarget: this}));
-
-    }); </script>
-</html>
+    })(window);
+</script>

@@ -1,27 +1,49 @@
 ﻿(function main(global) {
     var results = {};
 
+    var prom1 = jQuery.Deferred();
+    var prom2 = jQuery.Deferred();
+    var prom3 = jQuery.Deferred();
+
     $.when(getFile("file1", results))
-    .then(function () {
-        $.when(writeResult(results.file1))
-            .then(function () {
-                $.when(writeResult(results.file2))
-                            .then(function () {
-                                writeResult(results.file3);
-                                console.log("complete!");
-                            })
-            });
-    });
+        .then(function () {
+            prom1.resolve();
+        });
 
     $.when(getFile("file2", results))
         .then(function () {
+            prom2.resolve();
         });
 
     $.when(getFile("file3", results))
         .then(function () {
+            prom3.resolve();
         });
 
+    $.when(prom1.promise())
+        .then(function () {
+            console.log(results.file1);
+        });
+
+    $.when(prom1.promise(),prom2.promise())
+        .then(function () {
+            console.log(results.file2);
+        });
+
+    $.when(prom1.promise(), prom2.promise(), prom3.promise())
+    .then(function () {
+        console.log(results.file3);
+        console.log("complete!");
+    });
+
 })(window);
+
+
+
+function printResults(results) {
+    console.log(results.file1);
+
+}
 
 function writeResult(textOut) {
     var deferred = jQuery.Deferred();
