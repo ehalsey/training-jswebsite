@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <script>
+        var mgr = (function main() {
+            var publicAPI = {};
+            var internalData = [];
+            publicAPI.helloWorld = function helloWorld() {
+                console.log('hello world');
+            }
+            publicAPI.init = function doInit(data) {
+                internalData = data;
+            };
+            function test() {
+                console.log("test");
+            }
+            return publicAPI;
+        })();
+        mgr.init([1, 2, 3]);
+        mgr.helloWorld();
+        mgr.test();
+    </script>
+</head>
+<body>
+
+</body>
+</html>

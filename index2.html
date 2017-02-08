@@ -50,7 +50,8 @@
     <div id="WorkArea" class="clickable">
         <h5 class="clickable">WorkArea:</h5>
         <hr />
-        <input type="button" class="clickable" value="click me" onclick="window.acto_main.alert();" />
+        <input type="button" class="clickable" value="click me" onclick="acto.alert('button clicked');" />
+        <input type="button" class="clickable" value="click me default" onclick="acto.alert();" />
         <p class="clickable"> Click me!</p>
         <p class="clickable">
             This is some more text <span class="clickable"> [ click it! ]</span>
@@ -70,11 +71,13 @@
 <script src="Scripts/jquery-3.1.1.min.js"></script>
 
 <script type="text/javascript">
-    (function loadIt() {
-        window.acto_main = {};
-        var main = window.acto_main;
-        main.alert = function doAlert() {
-            alert("here1");
+    (function loadIt(global) {
+        global.acto = {
+            alert: function doAlert(alertMsg) {
+                alertMsg = alertMsg || this.DEFAULT_MSG;
+                alert(alertMsg);
+            },
+            DEFAULT_MSG: "some message"
         };
-    })();
+    })(window);
 </script>
